@@ -14,10 +14,7 @@ JSON::Number::Number(std::string &filename)
 {
     std::ifstream ifs(filename.c_str());
     if (!ifs.is_open())
-    {
         throw std::invalid_argument(std::string("JSON : Number Constructor : can't open ") + filename);
-        return ;
-    }
     this->value = JSON::Number(ifs).value;
     ifs.close();
 }
@@ -26,4 +23,6 @@ JSON::Number::Number(std::ifstream &ifs) {
     std::string line;
     getline(ifs, line);
     this->value = strtod(line.c_str(), NULL);
+	if (this->value == 0 && line[0] != '0')
+		throw std::invalid_argument(std::string("JSON : Number Constructor : invalid number ") + line);
 }

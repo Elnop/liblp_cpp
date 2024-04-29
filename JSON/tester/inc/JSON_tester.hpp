@@ -9,7 +9,7 @@
 std::string unmangle(const char *str);
 
 // tests
-bool numbers();
+void numbers();
 
 #include "toolkit.tpp"
 

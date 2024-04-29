@@ -1,6 +1,9 @@
 #include "JSON_tester.hpp"
 
-bool numbers() {
-    TesterContainer<JSON::Number> eight(JSONS_FOLDER"number_eight.json");
-    return eight.log_test(&TesterContainer<JSON::Number>::equal, 8);
+void numbers() {
+    TesterContainer<JSON::Number>(JSONS_FOLDER"numbers/number_eight.json")
+	.log_test(&TesterContainer<JSON::Number>::equal, 8);
+
+    TesterContainer<JSON::Number>("not_existing")
+	.log_test_exception("JSON : Number Constructor : can't open not_existing");
 }

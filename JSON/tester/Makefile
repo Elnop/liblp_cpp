@@ -4,7 +4,7 @@ NAME := JSON_tester
 
 CXX := c++
 
-CXXFLAGS := -Wall -Wextra -Werror -g3 #-std=c++98
+CXXFLAGS := -Wall -Wextra -Werror -g3 -std=c++98
 
 SOURCES_DIR := src
 
