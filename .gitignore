@@ -1,3 +1,4 @@
 *.a
 *.o
 *.d
+tester/JSON_tester
