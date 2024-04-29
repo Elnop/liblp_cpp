@@ -22,7 +22,8 @@ class TesterContainer {
             return this->something_ptr && value == this->something_ptr->value;
         };
         bool log_test(bool (TesterContainer::*method)(typename JSON_Type_Class::value_type value), typename JSON_Type_Class::value_type value) {
-            std::cout << "---- Test " << unmange(typeid(JSON_Type_Class).name());
+            std::cout << "---- Test "\
+            << unmangle(typeid(JSON_Type_Class).name()) << " " << value;
             if (((*this).*method)(value))
                 std::cout << " OK" << std::endl;
             else

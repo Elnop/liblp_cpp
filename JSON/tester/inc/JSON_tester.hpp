@@ -6,7 +6,7 @@
 # define JSONS_FOLDER "tester/json/"
 
 // utils
-std::string unmange(const char *str);
+std::string unmangle(const char *str);
 
 // tests
 bool numbers();

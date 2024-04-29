@@ -4,7 +4,7 @@
 #include <cstring>
 #include <iostream>
 
-std::string unmange(const char *str) {
+std::string unmangle(const char *str) {
     int status = -4;
     char *buff = (char *)malloc(sizeof(char) * std::strlen(str));
     size_t length;
