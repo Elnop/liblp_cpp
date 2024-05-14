@@ -2,7 +2,14 @@
 #include <iostream>
 
 int main() {
-    numbers();
-    // strings();
+    try {
+        // Parse JSON object from file
+        JSON::Object test(JSONS_FOLDER"omfg.json");
+        
+        // Access JSON data
+        std::cout << "Parsed JSON Object:\n" << test << std::endl;
+    } catch (std::exception &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
     return 0;
 }

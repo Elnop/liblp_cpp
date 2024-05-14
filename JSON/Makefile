@@ -63,4 +63,9 @@ test: all
 	@make re -C tester
 	@./tester/JSON_tester
 
+.PHONY: testvalg
+testvalg: all
+	@make re -C tester
+	valgrind -q --leak-check=full --leak-check=full --show-leak-kinds=all ./tester/JSON_tester
+
 -include $(DEPENDANCIES)

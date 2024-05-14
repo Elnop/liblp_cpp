@@ -7,10 +7,12 @@
 
 // utils
 std::string unmangle(const char *str);
-
+void logObject(JSON::Object &map);
 // tests
-void numbers();
+void test_number();
+void test_array();
+void test_object();
 
-#include "toolkit.tpp"
+#include "TesterContainer.tpp"
 
 #endif

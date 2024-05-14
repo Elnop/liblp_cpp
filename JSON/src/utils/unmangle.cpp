@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string>
 #include <cstring>
-#include <iostream>
 
 std::string unmangle(const char *str) {
     int status = -4;
