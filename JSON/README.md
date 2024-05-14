@@ -1,4 +1,4 @@
-# JSON Parser
+# JSON Parser CPP98
 
 This project provides a C++ library for parsing JSON files. It includes classes for representing JSON objects, arrays, numbers, and strings, along with methods for parsing JSON data from input streams.
 
@@ -13,11 +13,73 @@ This project provides a C++ library for parsing JSON files. It includes classes 
 ## Usage
 
 1. **Include Headers**: Include the `JSON.hpp` header file in your project.
-2. **Parse JSON**: Use the `parse` function to parse JSON data from input streams.
-3. **Access Data**: Access JSON data using accessor methods provided by the `Object` and `Array` classes.
+2. **Parse JSON**: Use the `JSON::parse` or type constructor to parse JSON data from input streams or file.
+3. **Access Data**: Access JSON data using get methods provided by the `Object` and `Array` classes. (exemple below)
 4. **Clone Objects**: Clone JSON objects and arrays using the `clone` method for deep copying.
 
-## Example
+## Examples
+
+### Data Access
+
+I want to get age value of index 1 in the list
+
+*main.cpp*
+```cpp
+#include "JSON.hpp"
+#include <iostream>
+
+int main() {
+    try {
+        // Parse JSON object from file
+        JSON::Object test(JSONS_FOLDER"test.json");
+        // Access deep JSON data
+        std::cout << test.get<JSON::Array *>("list")
+            ->get<JSON::Object *>(1)
+            ->get<double>("age")
+        << std::endl;
+    } catch (std::exception &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+    return 0;
+}
+```
+
+*test.json*
+```cpp
+{
+    "A": "im A",
+    "B": "im B",
+    "C": "im C",
+    "list": [
+        {
+            "name": "A",
+            "age": 20
+        },
+        {
+            "name": "B",
+            "age": 21
+        },
+        {
+            "name": "C",
+            "age": 22
+        }
+    ]
+}
+```
+*bash*
+```bash
+mkdir lperroti_is_so_cool
+cd lperroti_is_so_cool
+git clone git@github.com:Elnop/liblp_cpp.git
+make -C liblp_cpp
+```
+create main.cpp and test.json described above
+
+```bash
+c++ -std=c++98 main.cpp liblp_cpp/JSON/JSON.a
+./a.out
+```
+### Print File
 
 ```cpp
 #include "JSON.hpp"
