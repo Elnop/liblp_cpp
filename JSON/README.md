@@ -107,3 +107,4 @@ This project is licensed under the MIT License - see the [LICENSE](https://opens
 
 - [JSON Wiki](https://fr.wikipedia.org/wiki/JavaScript_Object_Notation)
 - [JSON Specification](https://www.json.org/json-en.html)
+- [ifstream](https://cplusplus.com/reference/fstream/ifstream/)
