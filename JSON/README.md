@@ -33,7 +33,8 @@ int main() {
         // Parse JSON object from file
         JSON::Object test(JSONS_FOLDER"test.json");
         // Access deep JSON data
-        std::cout << test.get<JSON::Array *>("list")
+        std::cout << test
+            .get<JSON::Array *>("list")
             ->get<JSON::Object *>(1)
             ->get<double>("age")
         << std::endl;
@@ -107,4 +108,4 @@ This project is licensed under the MIT License - see the [LICENSE](https://opens
 
 - [JSON Wiki](https://fr.wikipedia.org/wiki/JavaScript_Object_Notation)
 - [JSON Specification](https://www.json.org/json-en.html)
-- [ifstream](https://cplusplus.com/reference/fstream/ifstream/)
+- [CPP ifstream](https://cplusplus.com/reference/fstream/ifstream/)
