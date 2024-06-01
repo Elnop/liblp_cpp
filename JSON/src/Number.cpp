@@ -5,6 +5,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
+#include <sstream>
 
 JSON::Number::Number() {
     this->value = 0;
@@ -66,5 +67,7 @@ JSON::Number *JSON::Number::clone() const {
 
 std::string JSON::Number::toString(size_t indentation) const {
     (void)indentation;
-    return doubleToString(this->value);
+    std::stringstream ss;
+    ss << this->value;
+    return ss.str();
 }
