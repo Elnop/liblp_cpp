@@ -2,7 +2,7 @@
 
 NAME := JSON_tester
 
-CXX := c++
+CXX := clang++
 
 CXXFLAGS := -Wall -Wextra -Werror -g3 -std=c++98
 

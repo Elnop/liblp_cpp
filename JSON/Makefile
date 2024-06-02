@@ -2,7 +2,7 @@
 
 NAME := JSON.a
 
-CXX := c++
+CXX := clang++
 
 CXXFLAGS := -std=c++98 -Wall -Wextra -g3 -Werror
 
