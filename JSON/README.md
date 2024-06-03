@@ -1,6 +1,6 @@
-# JSON Parser CPP98
+# JSON Parser Clang CPP98
 
-This project provides a C++ library for parsing JSON files. It includes classes for representing JSON objects, arrays, numbers, and strings, along with methods for parsing JSON data from input streams.
+This project provides a C++ library for parsing JSON files. It includes classes for representing JSON objects, arrays, numbers, boolean and strings, along with methods for parsing JSON data from input streams.
 
 ## Features
 
@@ -10,18 +10,29 @@ This project provides a C++ library for parsing JSON files. It includes classes 
 - **Cloning**: Support for deep copying of JSON objects and arrays.
 - **Type-Safe Accessors**: Template-based accessor methods for safely retrieving values from JSON arrays and objects.
 
+⚠️ you had to compile with clang++ ⚠️
+
 ## Usage
 
-1. **Include Headers**: Include the `JSON.hpp` header file in your project.
-2. **Parse JSON**: Use the `JSON::parse` or type constructor to parse JSON data from input streams or file.
-3. **Access Data**: Access JSON data using get methods provided by the `Object` and `Array` classes. (exemple below)
-4. **Clone Objects**: Clone JSON objects and arrays using the `clone` method for deep copying.
+## Clone library
+*bash*
+```bash
+mkdir project
+cd project
+git clone git@github.com:Elnop/liblp_cpp.git
+make -C liblp_cpp/JSON
+```
 
-## Examples
+## Include Headers
+Include the `JSON.hpp` header file in your project.
 
-### Data Access
+*main.cpp*
+```cpp
+#include "JSON.hpp"
+```
 
-I want to get age value of index 1 in the list
+## Parse JSON
+Use the type constructor to parse JSON data from input streams or file.
 
 *main.cpp*
 ```cpp
@@ -29,18 +40,28 @@ I want to get age value of index 1 in the list
 #include <iostream>
 
 int main() {
-    try {
-        // Parse JSON object from file
-        JSON::Object test(JSONS_FOLDER"test.json");
-        // Access deep JSON data
-        std::cout << test
-            .get<JSON::Array *>("list")
-            ->get<JSON::Object *>(1)
-            ->get<double>("age")
-        << std::endl;
-    } catch (std::exception &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
+    // Parse JSON object from file
+    JSON::Object obj("./test.json");
+    std::cout << obj << std::endl;
+    return 0;
+}
+```
+## Access Data
+Access JSON data using get methods provided by the `Object` and `Array` classes.
+
+*main.cpp*
+```cpp
+#include "JSON.hpp"
+#include <iostream>
+
+int main() {
+    // test.json below
+    JSON::Object obj("./test.json");
+    // Access deep JSON data
+    std::cout << "Bob is " << obj . get< JSON::Array * >("list")
+        ->get< JSON::Object * >(1)
+        ->get< double >("age")
+    << std::endl;
     return 0;
 }
 ```
@@ -53,59 +74,35 @@ int main() {
     "C": "im C",
     "list": [
         {
-            "name": "A",
+            "name": "Alice",
             "age": 20
         },
         {
-            "name": "B",
+            "name": "Bob",
             "age": 21
         },
         {
-            "name": "C",
+            "name": "Crystallizer",
             "age": 22
         }
     ]
 }
 ```
-*bash*
-```bash
-mkdir lperroti_is_so_cool
-cd lperroti_is_so_cool
-git clone git@github.com:Elnop/liblp_cpp.git
-make -C liblp_cpp
-```
-create main.cpp and test.json described above
+
+## Compile the project
+⚠️ you had to compile with clang++ ⚠️
 
 ```bash
-c++ -std=c++98 main.cpp liblp_cpp/JSON/JSON.a
+clang++ -std=c++98 -I liblp_cpp/JSON/inc main.cpp liblp_cpp/JSON/JSON.a
 ./a.out
 ```
-### Print File
 
-```cpp
-#include "JSON.hpp"
-#include <iostream>
-
-int main() {
-    try {
-        // Parse JSON object from file
-        JSON::Object test("example.json");
-        
-        // Access JSON data
-        std::cout << "Parsed JSON Object:\n" << test << std::endl;
-    } catch (std::exception &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
-    return 0;
-}
-```
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](https://opensource.org/license/mit) file for details.
-
-## Links
+## Documentation
 
 - [JSON Wiki](https://fr.wikipedia.org/wiki/JavaScript_Object_Notation)
 - [JSON Specification](https://www.json.org/json-en.html)
 - [CPP ifstream](https://cplusplus.com/reference/fstream/ifstream/)
+
+## License
+
+This project is licensed under the [WTFPL](https://en.wikipedia.org/wiki/WTFPL)
