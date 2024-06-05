@@ -13,6 +13,10 @@ double JSON::Array::get<double>(size_t key) {
     return dynamic_cast<JSON::Number *>(this->value[key])->value;
 }
 template <>
+bool JSON::Array::get<bool>(size_t key) {
+    return dynamic_cast<JSON::Boolean *>(this->value[key])->value;
+}
+template <>
 std::string JSON::Array::get<std::string>(size_t key) {
     return dynamic_cast<JSON::String *>(this->value[key])->value;
 }

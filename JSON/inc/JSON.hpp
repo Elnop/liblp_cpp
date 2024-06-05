@@ -45,6 +45,17 @@ namespace JSON {
 			std::string toString(size_t indentation=0) const;
 			~String(){};
 	};
+	class Boolean : public IType {
+		public:
+			bool value;
+			Boolean();
+			Boolean(bool value);
+			Boolean(char const *filename);
+			Boolean(std::ifstream &ifs);
+			Boolean *clone() const;
+			std::string toString(size_t indentation=0) const;
+			~Boolean(){};
+	};
 	class Array : public IType {
 		public:
 			typedef std::vector<IType *> value_type;
@@ -62,6 +73,8 @@ namespace JSON {
 			inline Array *get<Array*>(size_t key);
 			template <>
 			inline double get<double>(size_t key);
+			template <>
+			inline bool get<bool>(size_t key);
 			template <>
 			inline std::string get<std::string>(size_t key);
 			std::string toString(size_t indentation=0) const;
@@ -91,6 +104,8 @@ namespace JSON {
 			inline Array *get<Array*>(std::string const &key);
 			template <>
 			inline double get<double>(std::string const &key);
+			template <>
+			inline bool get<bool>(std::string const &key);
 			template <>
 			inline std::string get<std::string>(std::string const &key);
 			std::string toString(size_t indentation=0) const;

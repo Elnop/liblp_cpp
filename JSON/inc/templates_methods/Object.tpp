@@ -21,6 +21,10 @@ double JSON::Object::get<double>(std::string const &key) {
     return dynamic_cast<JSON::Number *>(this->value[key])->value;
 };
 template <>
+bool JSON::Object::get<bool>(std::string const &key) {
+    return dynamic_cast<JSON::Boolean *>(this->value[key])->value;
+};
+template <>
 std::string JSON::Object::get<std::string>(std::string const &key) {
     return dynamic_cast<JSON::String *>(this->value[key])->value;
 };
