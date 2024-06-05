@@ -14,7 +14,7 @@ This project provides a C++ library for parsing JSON files. It includes classes 
 
 ## Usage
 
-## Clone library
+### Clone library
 *bash*
 ```bash
 mkdir project
@@ -23,7 +23,7 @@ git clone git@github.com:Elnop/liblp_cpp.git
 make -C liblp_cpp/JSON
 ```
 
-## Include Headers
+### Include Headers
 Include the `JSON.hpp` header file in your project.
 
 *main.cpp*
@@ -31,7 +31,7 @@ Include the `JSON.hpp` header file in your project.
 #include "JSON.hpp"
 ```
 
-## Parse JSON
+### Parse JSON
 Use the type constructor to parse JSON data from input streams or file.
 
 *main.cpp*
@@ -46,7 +46,7 @@ int main() {
     return 0;
 }
 ```
-## Access Data
+### Access Data
 Access JSON data using get methods provided by the `Object` and `Array` classes.
 
 *main.cpp*
@@ -89,7 +89,7 @@ int main() {
 }
 ```
 
-## Compile the project
+### Compile the project
 ⚠️ you had to compile with clang++ ⚠️
 
 ```bash
