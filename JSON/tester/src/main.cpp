@@ -2,16 +2,13 @@
 #include <iostream>
 
 int main() {
-    try {
-        // Parse JSON object from file
-        JSON::Object test(JSONS_FOLDER"omfg.json");
-        // Access JSON data
-        std::cout << test.get<JSON::Array *>("list")
-            ->get<JSON::Object *>(1)
-            ->get<double>("age")
-        << std::endl;
-    } catch (std::exception &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
+    JSON::Boolean True(JSONS_FOLDER"boolean/true.json");
+    std::cout << True << " " << std::endl;
+    JSON::Boolean False(JSONS_FOLDER"boolean/false.json");
+    std::cout << False << " "<< std::endl;
+    JSON::Array list(JSONS_FOLDER"boolean/list.json");
+    std::cout << list << " " << std::endl;
+    JSON::Object object(JSONS_FOLDER"boolean/object.json");
+    std::cout << object << " " << std::endl;
     return 0;
 }
