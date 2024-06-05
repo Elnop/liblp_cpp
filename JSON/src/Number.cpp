@@ -19,7 +19,7 @@ JSON::Number::Number(char const *filename)
 {
     std::ifstream ifs(filename);
     if (!ifs.is_open())
-        throw std::invalid_argument(std::string(" Number Constructor (char *filename) : can't open ") + filename);
+        throw std::invalid_argument(std::string("Number Constructor (char const *filename) : can't open ") + filename);
     this->value = JSON::Number(ifs).value;
     ifs.close();
 }
@@ -50,7 +50,7 @@ JSON::Number::Number(std::ifstream &ifs) {
     std::string line = rdstr(ifs, count_digits(ifs));
     this->value = strtod(line.c_str(), NULL);
 	if (this->value == 0 && line[0] != '0')
-		throw std::invalid_argument(std::string(" Number Constructor (ifstream) : invalid number ") + line);
+		throw std::invalid_argument(std::string("Number Constructor (ifstream) : invalid number ") + line);
 }
 
 JSON::Number::Number(std::string str) {
@@ -58,7 +58,7 @@ JSON::Number::Number(std::string str) {
     char *end;
     this->value = strtod(str.c_str(), &end);
 	if (*end && *end != ',' && *end != ']' && *end != '}')
-		throw std::invalid_argument(std::string(" Number Constructor (string) : invalid number in \"") + str + std::string("\"") );
+		throw std::invalid_argument(std::string("Number Constructor (string) : invalid number in \"") + str + std::string("\"") );
 }
 
 JSON::Number *JSON::Number::clone() const {
