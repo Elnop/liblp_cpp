@@ -18,13 +18,16 @@ JSON::Array *JSON::Object::get<JSON::Array*>(std::string const &key) {
 };
 template <>
 double JSON::Object::get<double>(std::string const &key) {
-    return dynamic_cast<JSON::Number *>(this->value[key])->value;
+    JSON::Number *n = dynamic_cast<JSON::Number *>(this->value[key]);
+    return n ? n->value : 0;
 };
 template <>
 bool JSON::Object::get<bool>(std::string const &key) {
-    return dynamic_cast<JSON::Boolean *>(this->value[key])->value;
+    JSON::Boolean *b = dynamic_cast<JSON::Boolean *>(this->value[key]);
+    return b ? b->value : false;
 };
 template <>
 std::string JSON::Object::get<std::string>(std::string const &key) {
-    return dynamic_cast<JSON::String *>(this->value[key])->value;
+    JSON::String *s = dynamic_cast<JSON::String *>(this->value[key]);
+    return s ? s->value : "";
 };
