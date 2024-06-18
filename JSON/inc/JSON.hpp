@@ -81,7 +81,7 @@ namespace JSON {
 			Array &operator=(const Array &other) {
 				if (this != &other) {
 					this->value.clear();
-					for (size_t i = 0; other.value[i] && i < other.value.size(); ++i)
+					for (size_t i = 0; i < other.value.size() && other.value[i]; ++i)
 						this->value.push_back(other.value[i]->clone());
 				}
 				return *this;
