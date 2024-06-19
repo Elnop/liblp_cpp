@@ -3,13 +3,15 @@
 #include <stdexcept>
 #include <cctype>
 
-JSON::Array::Array() {}
+using JSON::Array;
 
-JSON::Array::Array(std::vector<IType *> value) {
+Array::Array() {}
+
+Array::Array(std::vector<IType *> value) {
     this->value = value;
 }
 
-JSON::Array::Array(char const *filename)
+Array::Array(char const *filename)
 {
     std::ifstream ifs(filename);
     if (!ifs.is_open())
@@ -18,7 +20,7 @@ JSON::Array::Array(char const *filename)
     ifs.close();
 }
 
-JSON::Array::Array(std::ifstream &ifs) {
+Array::Array(std::ifstream &ifs) {
     ifs >> std::ws;
     if (ifs.get() != '[') {
         for (size_t i = 0; i < this->value.size(); ++i)
@@ -51,14 +53,30 @@ JSON::Array::Array(std::ifstream &ifs) {
     }
 }
 
-JSON::Array *JSON::Array::clone() const {
-    JSON::Array *new_array = new JSON::Array();
+Array::Array(const Array &other) {
+    for (size_t i = 0; i < other.value.size() && other.value[i]; ++i)
+        this->value.push_back(other.value[i]->clone());
+}
+
+Array &Array::operator=(const Array &other) {
+    if (this != &other) {
+        for (size_t i = 0; i < value.size(); ++i)
+            delete this->value[i];
+        this->value.clear();
+        for (size_t i = 0; i < other.value.size() && other.value[i]; ++i)
+            this->value.push_back(other.value[i]->clone());
+    }
+    return *this;
+}
+
+Array *Array::clone() const {
+    Array *new_array = new Array();
     for (size_t i = 0; i < this->value.size(); ++i)
         new_array->value.push_back(this->value[i]->clone());
     return new_array;
 }
 
-std::string JSON::Array::toString(size_t indentation) const {
+std::string Array::toString(size_t indentation) const {
     std::string str;
     for (size_t j = 0; j < indentation; ++j)
         str += "  ";
@@ -77,7 +95,7 @@ std::string JSON::Array::toString(size_t indentation) const {
     return str;
 }
 
-JSON::Array::~Array() {
+Array::~Array() {
     for (size_t i = 0; i < value.size(); ++i) {
         delete this->value[i];
     }

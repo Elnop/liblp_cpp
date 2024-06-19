@@ -1,17 +1,19 @@
 #include "JSON.hpp"
 
-JSON::Object::Object() {}
+using JSON::Object;
 
-JSON::Object::Object(char const *filename)
+Object::Object() {}
+
+Object::Object(char const *filename)
 {
     std::ifstream ifs(filename);
     if (!ifs.is_open())
         throw std::invalid_argument(std::string(" Constructor : can't open \"") + filename + std::string("\"\n"));
-    *this = JSON::Object(ifs);
+    *this = Object(ifs);
     ifs.close();
 }
 
-JSON::Object::Object(std::ifstream &ifs)
+Object::Object(std::ifstream &ifs)
 {
     if (!ifs.is_open())
         throw std::invalid_argument("Object Constructor : stream not open\n");
@@ -51,7 +53,7 @@ JSON::Object::Object(std::ifstream &ifs)
         }
         ifs >> std::ws;
         try {
-            this->value[key] = JSON::parse(ifs);
+            this->value[key] = parse(ifs);
         } catch (std::exception &e) {
             for (std::map<std::string, IType *>::const_iterator it = this->value.begin(); it != this->value.end(); ++it)
                 delete it->second;
@@ -67,20 +69,37 @@ JSON::Object::Object(std::ifstream &ifs)
     }
 }
 
-JSON::Object::Object(std::map<std::string, IType *> value)
+Object::Object(std::map<std::string, IType *> value)
 {
     this->value = value;
 }
 
-JSON::Object *JSON::Object::clone() const
+Object::Object(const Object &other)
 {
-    JSON::Object *new_object = new JSON::Object();
+    for (std::map<std::string, IType *>::const_iterator it = other.value.begin(); it != other.value.end(); ++it)
+        this->value[it->first] = it->second->clone();
+}
+
+Object &Object::operator=(const Object &other) {
+    if (this != &other) {
+        for (std::map<std::string, IType *>::const_iterator it = this->value.begin(); it != this->value.end(); ++it)
+            delete it->second;
+        this->value.clear();
+        for (std::map<std::string, IType *>::const_iterator it = other.value.begin(); it != other.value.end(); ++it)
+            this->value[it->first] = it->second->clone();
+    }
+    return *this;
+}
+
+Object *Object::clone() const
+{
+    Object *new_object = new Object();
     for (std::map<std::string, IType *>::const_iterator it = this->value.begin(); it != this->value.end(); ++it)
         new_object->value[it->first] = it->second->clone();
     return new_object;
 }
 
-std::string JSON::Object::toString(size_t indentation) const
+std::string Object::toString(size_t indentation) const
 {
     std::string str;
     for (size_t j = 0; j < indentation; ++j)
@@ -101,7 +120,7 @@ std::string JSON::Object::toString(size_t indentation) const
     return str;
 }
 
-JSON::Object::~Object()
+Object::~Object()
 {
     for (std::map<std::string, IType *>::const_iterator it = this->value.begin(); it != this->value.end(); ++it)
     {

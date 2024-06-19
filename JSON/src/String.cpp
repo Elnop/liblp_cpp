@@ -2,9 +2,9 @@
 #include <iostream>
 #include <cstddef>
 
-JSON::String::String(std::string &filename)
+JSON::String::String(char const *filename)
 {
-    std::ifstream ifs(filename.c_str());
+    std::ifstream ifs(filename);
     if (!ifs.is_open())
     {
         std::cerr << " Constructor : can't open \"" << filename << "\"\n";

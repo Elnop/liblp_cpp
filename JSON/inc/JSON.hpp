@@ -39,7 +39,7 @@ namespace JSON {
 			std::string value;
 			String();
 			String(std::string value);
-			String(std::string &filename);
+			String(char const *filename);
 			String(std::ifstream &ifs);
 			String *clone() const;
 			std::string toString(size_t indentation=0) const;
@@ -64,6 +64,8 @@ namespace JSON {
 			Array(std::vector<IType *> value);
 			Array(char const *filename);
 			Array(std::ifstream &ifs);
+			Array(const Array &other);
+			Array &operator=(const Array &other);
 			Array *clone() const;
 			template <typename T>
             inline T get(size_t key);
@@ -78,14 +80,6 @@ namespace JSON {
 			template <>
 			inline std::string get<std::string>(size_t key);
 			std::string toString(size_t indentation=0) const;
-			Array &operator=(const Array &other) {
-				if (this != &other) {
-					this->value.clear();
-					for (size_t i = 0; i < other.value.size() && other.value[i]; ++i)
-						this->value.push_back(other.value[i]->clone());
-				}
-				return *this;
-			}
 			~Array();
 	};
 	class Object : public IType {
@@ -95,6 +89,7 @@ namespace JSON {
 			Object(std::map<std::string, IType *> value);
 			Object(char const *filename);
 			Object(std::ifstream &ifs);
+			Object(const Object &other);
 			Object *clone() const;
 			template <typename T>
             inline T get(std::string const &key);
@@ -109,14 +104,7 @@ namespace JSON {
 			template <>
 			inline std::string get<std::string>(std::string const &key);
 			std::string toString(size_t indentation=0) const;
-			Object &operator=(const Object &other) {
-				if (this != &other) {
-					this->value.clear();
-					for (std::map<std::string, IType *>::const_iterator it = other.value.begin(); it != other.value.end(); ++it)
-						this->value[it->first] = it->second->clone();
-				}
-				return *this;
-			}
+			Object &operator=(const Object &other);
 			~Object();
 	};
 	// class Boolean : public IType {
